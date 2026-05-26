@@ -10,7 +10,7 @@ import { api } from "@/lib/api";
 import { useAuthStore } from "@/store/useAuthStore";
 import { useWishlistStore } from "@/store/useWishlistStore";
 import { motion, AnimatePresence } from "framer-motion";
-import { ShieldAlert, Sparkles, UserPlus, LogIn, ArrowRight } from "lucide-react";
+import { ShieldAlert, Sparkles, UserPlus, LogIn, ArrowRight, Eye, EyeOff } from "lucide-react";
 
 function LoginContent() {
   const router = useRouter();
@@ -22,9 +22,24 @@ function LoginContent() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
   const [isSuccess, setIsSuccess] = useState(false);
+  const [coldStartNotice, setColdStartNotice] = useState(false);
+
+  // Monitor loading to show cold start notice if it takes too long on free tiers
+  useEffect(() => {
+    let timer: NodeJS.Timeout;
+    if (loading) {
+      timer = setTimeout(() => {
+        setColdStartNotice(true);
+      }, 5000);
+    } else {
+      setColdStartNotice(false);
+    }
+    return () => clearTimeout(timer);
+  }, [loading]);
 
   // Clear message on mode change
   useEffect(() => {
@@ -163,15 +178,25 @@ function LoginContent() {
 
               <div>
                 <label className="block text-[10px] font-black uppercase tracking-wider text-white/40 mb-2">Secure Password</label>
-                <input 
-                  value={password} 
-                  onChange={(e) => setPassword(e.target.value)} 
-                  type="password" 
-                  placeholder="Min. 8 characters" 
-                  className="h-14 w-full rounded-2xl border border-white/10 bg-white/5 px-5 text-sm outline-none focus:border-gold/30 text-white placeholder-white/20 focus:bg-white/10 transition-all" 
-                  required 
-                  minLength={8} 
-                />
+                <div className="relative">
+                  <input 
+                    value={password} 
+                    onChange={(e) => setPassword(e.target.value)} 
+                    type={showPassword ? "text" : "password"} 
+                    placeholder="Min. 8 characters" 
+                    className="h-14 w-full rounded-2xl border border-white/10 bg-white/5 pl-5 pr-12 text-sm outline-none focus:border-gold/30 text-white placeholder-white/20 focus:bg-white/10 transition-all" 
+                    required 
+                    minLength={8} 
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute right-4 top-1/2 -translate-y-1/2 text-white/40 hover:text-white transition-colors cursor-pointer"
+                    aria-label={showPassword ? "Hide password" : "Show password"}
+                  >
+                    {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+                  </button>
+                </div>
               </div>
 
               <button 
@@ -210,7 +235,14 @@ function LoginContent() {
                   }`}
                 >
                   {!isSuccess && !loading && <ShieldAlert size={16} className="shrink-0" />}
-                  <span>{message}</span>
+                  <div className="flex flex-col gap-1 w-full">
+                    <span>{message}</span>
+                    {loading && coldStartNotice && (
+                      <span className="mt-2 text-[10px] text-gold/90 block animate-pulse font-medium leading-normal border-t border-white/5 pt-2">
+                        ℹ️ Waking the backend server from its sleep cycle (Render free tier spin-ups take ~45 seconds). Please hold on; your secure request will process automatically as soon as it goes live!
+                      </span>
+                    )}
+                  </div>
                 </motion.div>
               )}
             </AnimatePresence>

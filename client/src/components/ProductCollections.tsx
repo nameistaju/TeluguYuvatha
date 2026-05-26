@@ -3,9 +3,11 @@
 import { useState } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { ShoppingBag, Eye } from "lucide-react";
+import { ShoppingBag, Eye, Heart } from "lucide-react";
 import Link from "next/link";
 import { useCartStore } from "@/store/useCartStore";
+import { useWishlistStore } from "@/store/useWishlistStore";
+import { useAuthStore } from "@/store/useAuthStore";
 import QuickViewModal from "./QuickViewModal";
 
 import { PRODUCTS } from "@/data/products";
@@ -23,6 +25,9 @@ const products = PRODUCTS.slice(0, 8).map(p => ({
 
 export default function ProductCollections() {
   const [quickViewProduct, setQuickViewProduct] = useState<any>(null);
+  const token = useAuthStore((state) => state.token);
+  const wishedIds = useWishlistStore((state) => state.productIds);
+  const toggleWishlist = useWishlistStore((state) => state.toggle);
 
   return (
     <section className="py-32 bg-background px-4 relative overflow-hidden">
@@ -89,6 +94,23 @@ export default function ProductCollections() {
                       
                       {/* Dark gradient overlay on hover */}
                       <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                      
+                      {/* Wishlist Heart Button (Top-Right Hover Reveal) */}
+                      <button
+                        onClick={(e) => {
+                          e.preventDefault();
+                          e.stopPropagation();
+                          void toggleWishlist(String(product.id), token);
+                        }}
+                        className={`absolute top-4 right-4 z-30 p-3 bg-black/60 backdrop-blur-md border border-white/10 rounded-full shadow-2xl transition-all duration-300 cursor-pointer ${
+                          wishedIds.includes(String(product.id))
+                            ? "text-accent scale-110 opacity-100 translate-y-0"
+                            : "text-white hover:text-accent hover:scale-110 opacity-0 group-hover:opacity-100 -translate-y-2 group-hover:translate-y-0"
+                        }`}
+                        aria-label="Add to wishlist"
+                      >
+                        <Heart size={16} fill={wishedIds.includes(String(product.id)) ? "currentColor" : "none"} />
+                      </button>
                       
                       {/* Quick action buttons text info */}
                       <div className="absolute bottom-6 left-6 right-28 flex flex-col opacity-0 group-hover:opacity-100 transition-all duration-500 translate-y-4 group-hover:translate-y-0 z-10 pointer-events-none">

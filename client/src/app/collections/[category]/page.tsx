@@ -4,7 +4,7 @@ import { useState, useMemo, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useParams, notFound } from "next/navigation";
-import { Heart, ShoppingBag, Search, SlidersHorizontal, ArrowUpDown, Sparkles, Eye } from "lucide-react";
+import { Heart, ShoppingBag, Sparkles, Eye } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { motion, AnimatePresence } from "framer-motion";

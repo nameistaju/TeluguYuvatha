@@ -1,5 +1,6 @@
 const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:5000/api";
-const DEFAULT_TIMEOUT_MS = 15_000;
+const DEFAULT_TIMEOUT_MS = 90_000;
+
 
 export interface ApiSession {
   token?: string;
