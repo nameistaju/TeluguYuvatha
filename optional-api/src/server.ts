@@ -22,7 +22,38 @@ const app = express();
 app.use(helmet());
 app.use(
   cors({
-    origin: [env.FRONTEND_URL, env.ADMIN_URL],
+    origin: (origin, callback) => {
+      if (!origin) return callback(null, true);
+
+      const allowedOrigins = [
+        "http://localhost:3000",
+        "http://localhost:3001",
+        "https://telugu-yuvatha-client.vercel.app",
+        "https://telugu-yuvatha-admin.vercel.app"
+      ];
+
+      const parseEnvUrl = (urlStr: string) => {
+        if (!urlStr) return [];
+        return urlStr.split(",").map((u) => u.trim());
+      };
+
+      const parsedOrigins = [
+        ...allowedOrigins,
+        ...parseEnvUrl(env.FRONTEND_URL),
+        ...parseEnvUrl(env.ADMIN_URL)
+      ];
+
+      const isAllowed = parsedOrigins.some((allowed) => {
+        if (!allowed) return false;
+        return origin === allowed || origin.endsWith(".vercel.app") || allowed === "*";
+      });
+
+      if (isAllowed) {
+        callback(null, true);
+      } else {
+        callback(null, false);
+      }
+    },
     credentials: true
   })
 );
