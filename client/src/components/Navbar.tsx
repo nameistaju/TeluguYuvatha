@@ -62,26 +62,40 @@ export default function Navbar() {
           isScrolled ? "bg-background/90 backdrop-blur-md border-b border-surface shadow-sm" : "bg-transparent"
         }`}
       >
-        <div className={`max-w-7xl mx-auto px-4 flex justify-between items-center transition-all duration-300 relative ${
+        <div className={`max-w-7xl mx-auto px-4 flex justify-between items-center transition-all duration-300 ${
           isScrolled ? "py-4" : "py-6"
         }`}>
-          <div className="flex items-center gap-6 hidden md:flex">
-            <Link href="/collections/all" className="text-foreground/80 hover:text-accent font-black uppercase tracking-wider text-sm transition-colors">
-              Shop
-            </Link>
-            <Link href="/collections/accessories" className="text-foreground/80 hover:text-accent font-black uppercase tracking-wider text-sm transition-colors">
-              Accessories
-            </Link>
-            <Link href="/story" className="text-foreground/80 hover:text-accent font-black uppercase tracking-wider text-sm transition-colors">
-              Story
+          {/* Left Column: Menu Button (Mobile) / Links (Desktop) */}
+          <div className="flex-1 flex items-center justify-start">
+            <button
+              className="text-foreground hover:text-white transition-colors lg:hidden cursor-pointer"
+              onClick={() => setIsMobileMenuOpen(true)}
+              aria-label="Open mobile menu"
+            >
+              <Menu size={22} strokeWidth={1.5} />
+            </button>
+            <div className="hidden lg:flex items-center gap-6">
+              <Link href="/collections/all" className="text-foreground/80 hover:text-accent font-black uppercase tracking-wider text-sm transition-colors">
+                Shop
+              </Link>
+              <Link href="/collections/accessories" className="text-foreground/80 hover:text-accent font-black uppercase tracking-wider text-sm transition-colors">
+                Accessories
+              </Link>
+              <Link href="/story" className="text-foreground/80 hover:text-accent font-black uppercase tracking-wider text-sm transition-colors">
+                Story
+              </Link>
+            </div>
+          </div>
+
+          {/* Center Column: Centered Logo */}
+          <div className="flex-shrink-0 flex items-center justify-center">
+            <Link href="/" className="text-lg md:text-2xl font-black uppercase tracking-tighter text-foreground hover:text-accent transition-colors leading-none text-center">
+              Telugu<br className="hidden md:block" />Yuvatha
             </Link>
           </div>
 
-          <Link href="/" className="absolute left-1/2 -translate-x-1/2 text-2xl font-black uppercase tracking-tighter text-foreground hover:text-accent transition-colors">
-            Telugu<br className="hidden md:block" />Yuvatha
-          </Link>
-
-          <div className="flex items-center gap-5">
+          {/* Right Column: Actions (Aligned Right) */}
+          <div className="flex-1 flex items-center justify-end gap-3.5 md:gap-5">
             {/* Elegant Search Drawer Trigger */}
             <button 
               type="button"
@@ -98,7 +112,7 @@ export default function Navbar() {
 
             <Link href="/wishlist" className="text-foreground hover:text-white transition-colors relative" aria-label="View wishlist">
               <Heart size={22} strokeWidth={1.5} />
-              <span className="absolute -top-1.5 -right-2 bg-[#d34a4a] text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center">
+              <span className="absolute -top-1.5 -right-2 bg-[#d34a4a] text-white text-[9px] font-bold w-4 h-4 rounded-full flex items-center justify-center">
                 {mounted ? wishedIds.length : 0}
               </span>
             </Link>
@@ -109,15 +123,9 @@ export default function Navbar() {
               aria-label="Open cart drawer"
             >
               <ShoppingBag size={22} strokeWidth={1.5} />
-              <span className="absolute -top-1.5 -right-2 bg-[#d34a4a] text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center">
+              <span className="absolute -top-1.5 -right-2 bg-[#d34a4a] text-white text-[9px] font-bold w-4 h-4 rounded-full flex items-center justify-center">
                 {mounted ? totalItems() : 0}
               </span>
-            </button>
-            <button
-              className="text-foreground hover:text-white transition-colors lg:hidden ml-1"
-              onClick={() => setIsMobileMenuOpen(true)}
-            >
-              <Menu size={24} strokeWidth={1.5} />
             </button>
           </div>
         </div>

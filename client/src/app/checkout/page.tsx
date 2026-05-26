@@ -109,7 +109,21 @@ export default function CheckoutPage() {
   const [message, setMessage] = useState("");
   const [pendingOnlineOrderId, setPendingOnlineOrderId] = useState<string>();
   const [authChecked, setAuthChecked] = useState(false);
+  const [coldStartNotice, setColdStartNotice] = useState(false);
   const [, startTransition] = useTransition();
+
+  // Monitor checkout status to warn users if backend takes more than 5s on cold starts
+  useEffect(() => {
+    let timer: NodeJS.Timeout;
+    if (status === "creating" || status === "paying" || status === "verifying") {
+      timer = setTimeout(() => {
+        setColdStartNotice(true);
+      }, 5000);
+    } else {
+      setColdStartNotice(false);
+    }
+    return () => clearTimeout(timer);
+  }, [status]);
 
   const totals = useMemo(() => {
     const subtotal = totalPrice();
@@ -128,6 +142,8 @@ export default function CheckoutPage() {
 
   useEffect(() => {
     setMounted(true);
+    // Pre-load Razorpay script on mount to eliminate select/initialize lag completely!
+    void loadRazorpayScript().catch(() => {});
   }, []);
 
   useEffect(() => {
@@ -619,10 +635,17 @@ export default function CheckoutPage() {
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: 10 }}
-                  className="mt-4 p-4 rounded-xl border border-white/10 bg-white/5 text-white/60 text-[10px] leading-relaxed uppercase tracking-wider font-bold flex gap-2"
+                  className="mt-4 p-4 rounded-xl border border-white/10 bg-white/5 text-white/60 text-[10px] leading-relaxed uppercase tracking-wider font-bold flex flex-col gap-2"
                 >
-                  <AlertCircle size={14} className="shrink-0 text-gold" />
-                  <span>{message}</span>
+                  <div className="flex gap-2 items-center">
+                    <AlertCircle size={14} className="shrink-0 text-gold" />
+                    <span>{message}</span>
+                  </div>
+                  {coldStartNotice && (
+                    <p className="text-[9px] text-gold/90 block animate-pulse font-medium leading-normal border-t border-white/5 pt-2 normal-case">
+                      ℹ️ Note: Processing this transaction takes a bit of time because our database is currently waking up on the free hosting tier. Your details are secured and will process automatically shortly!
+                    </p>
+                  )}
                 </motion.div>
               )}
             </AnimatePresence>

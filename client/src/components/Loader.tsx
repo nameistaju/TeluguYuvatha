@@ -14,6 +14,16 @@ export default function Loader({ onComplete }: { onComplete: () => void }) {
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
+    // Skip intro entirely on mobile devices to get straight to products
+    if (typeof window !== "undefined") {
+      const isMobile = window.innerWidth < 768;
+      if (isMobile) {
+        setShowLoader(false);
+        onComplete();
+        return;
+      }
+    }
+
     // Use sessionStorage so the intro plays once per browser session,
     // not permanently forever (which was the old localStorage behavior).
     const hasSeenIntro = sessionStorage.getItem("ty_intro_seen");
@@ -53,9 +63,10 @@ export default function Loader({ onComplete }: { onComplete: () => void }) {
     }, containerRef);
 
     // Keep the cinematic intro bounded so it never blocks shopping interactions.
+    // Increased to 15 seconds to allow full video to play before safety cutoff fires.
     timeoutRef.current = setTimeout(() => {
       finishIntro();
-    }, 4500);
+    }, 15000);
 
     // Ensure video plays
     if (videoRef.current) {
