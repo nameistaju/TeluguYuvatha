@@ -1,4 +1,4 @@
 {
   "buildCommand": "npm run build --workspace shared && npm run build --workspace admin",
-  "outputDirectory": "admin/.next"
+  "outputDirectory": ".next"
 }
