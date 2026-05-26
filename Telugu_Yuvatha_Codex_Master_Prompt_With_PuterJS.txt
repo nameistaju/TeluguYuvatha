@@ -1,0 +1,395 @@
+
+TELUGU YUVATHA — MASTER CODEX PROMPT (WITH PUTER.JS GUIDANCE)
+
+IMPORTANT NOTE:
+If by "poter js" you mean "Puter.js" (https://puter.com), it is NOT recommended as the core framework
+for this ecommerce platform. Puter.js is useful for browser-side utilities, but a production ecommerce
+site should use:
+- Frontend: Next.js 15
+- Backend: Node.js + Express.js
+- Database: MongoDB Atlas
+- Payments: Razorpay
+- Image Storage: Cloudinary
+- Admin Dashboard: Separate Next.js app or route group
+
+You MAY optionally use Puter.js for:
+- quick file uploads
+- AI-assisted product descriptions
+- client-side utilities
+But NOT as the main ecommerce backend.
+
+===============================================================================
+PROJECT OVERVIEW
+===============================================================================
+
+Build a premium cinematic Telugu streetwear ecommerce platform called "Telugu Yuvatha".
+
+Brand Identity:
+- Dark cinematic aesthetic
+- Inspired by Tollywood fan culture
+- Premium streetwear
+- Oversized T-shirts, shirts, jeans
+- Mobile-first design
+- Smooth high-end animations
+
+Project Structure:
+- frontend/  (customer-facing website)
+- backend/   (REST API)
+- admin/     (admin dashboard)
+
+===============================================================================
+TECH STACK
+===============================================================================
+
+Frontend:
+- Next.js 15 (App Router)
+- Tailwind CSS
+- Framer Motion
+- GSAP
+- React Three Fiber (Three.js)
+- Zustand
+- Swiper.js
+
+Backend:
+- Node.js
+- Express.js
+- MongoDB Atlas
+- Mongoose
+- JWT Authentication
+- bcrypt
+
+Admin:
+- Next.js 15
+- Tailwind CSS
+- Recharts
+
+Integrations:
+- Razorpay (payments)
+- Cloudinary (image hosting)
+- Nodemailer (emails)
+
+Deployment:
+- Frontend: Vercel
+- Backend: Render or Railway
+- Database: MongoDB Atlas
+
+===============================================================================
+ASSETS
+===============================================================================
+
+All product mockups, images, hero assets, intro video, and audio are already placed
+inside the assets folder.
+
+Examples:
+- loader_text.png
+- hero_video_desktop.mp4
+- OG1.png, OG2.png, OG3.png, OG4.png
+- cinema*.png
+- Pushpa_jean*.png
+- comingsoon*.png
+
+Use these real assets throughout the project.
+
+===============================================================================
+LOADING EXPERIENCE
+===============================================================================
+
+1. On first visit, display full-screen loader.
+2. Use SplitText/GSAP animation for:
+   "WELCOME TO TELUGU YUVATHA"
+3. Show custom logo text image (loader_text.png).
+4. Background music begins automatically if browser allows.
+5. After text animation, play hero intro video (36 seconds).
+6. User can skip intro.
+7. After video ends, smoothly transition into homepage.
+8. Save a flag in localStorage so the intro only plays once per session.
+
+===============================================================================
+HOMEPAGE SECTIONS
+===============================================================================
+
+1. Loader + Intro Video
+2. Hero Section
+3. 3D Featured Products Showcase
+4. Dome Gallery
+5. Product Collections
+6. Hero Signature Loop
+7. Coming Soon Section
+8. Cinematic Brand Video Section
+9. Newsletter
+10. Footer
+
+===============================================================================
+HERO SECTION
+===============================================================================
+
+- Full-screen cinematic section
+- Background remains fixed
+- Aesthetic product slider using existing shirt and jean mockups
+- Bold headline:
+  "WEAR THE MASS"
+- Subheadline:
+  "Streetwear Inspired by Telugu Cinema Culture"
+- CTA buttons:
+  - Shop Now
+  - Explore Story
+
+===============================================================================
+3D FEATURED PRODUCTS SECTION
+===============================================================================
+
+Use React Three Fiber + Three.js.
+
+Features:
+- Floating 3D T-shirts and jeans
+- Scroll-based animations
+- Parallax camera movement
+- Lighting and shadows
+- Smooth transitions
+- Premium cinematic atmosphere
+
+===============================================================================
+DOME GALLERY SECTION
+===============================================================================
+
+Use the DomeGallery component for Tollywood hero images and posters.
+Users can drag and click to enlarge images.
+
+===============================================================================
+PRODUCT SHOWCASE SECTION
+===============================================================================
+
+Display:
+- All available products
+- Category filters
+- Search
+- Sorting
+- Quick add to cart
+
+Products:
+- 5 T-shirts
+- 1 Shirt
+- 1 Jean
+
+===============================================================================
+HERO SIGNATURE LOOP
+===============================================================================
+
+Scrolling loop of hero-inspired signatures and symbols.
+
+Examples:
+- OG
+- Pushpa
+- Cinema
+- Mass
+- FDFS
+
+Use LogoLoop for continuous motion.
+
+===============================================================================
+COMING SOON SECTION
+===============================================================================
+
+Display upcoming designs with:
+- "COMING SOON"
+- "DROP 002 IN DEVELOPMENT"
+
+===============================================================================
+BRAND VIDEO SECTION
+===============================================================================
+
+Reuse the same 36-second intro video in a section lower on the homepage.
+Add story text about the brand.
+
+===============================================================================
+PAGES
+===============================================================================
+
+- Home
+- All Products
+- Product Details
+- Story
+- Contact
+- Cart
+- Checkout
+- Login/Register
+- Profile
+- Orders
+- Wishlist
+
+===============================================================================
+ADMIN DASHBOARD
+===============================================================================
+
+Features:
+- Admin login
+- Dashboard analytics
+- Product CRUD
+- Category CRUD
+- Upload multiple images
+- Manage orders
+- Update stock
+- Manage homepage content
+- Newsletter subscribers
+
+===============================================================================
+BACKEND API MODULES
+===============================================================================
+
+- auth
+- users
+- products
+- categories
+- carts
+- wishlists
+- orders
+- payments
+- reviews
+- contact
+- newsletter
+- admin
+
+Architecture:
+- models/
+- controllers/
+- routes/
+- middleware/
+- services/
+- utils/
+- config/
+
+===============================================================================
+RAZORPAY INTEGRATION
+===============================================================================
+
+Implement:
+- Create order API
+- Verify payment signature
+- Save order after successful payment
+- Payment success and failure pages
+
+Environment Variables:
+RAZORPAY_KEY_ID=
+RAZORPAY_KEY_SECRET=
+
+===============================================================================
+CLOUDINARY INTEGRATION
+===============================================================================
+
+Implement:
+- Multiple image uploads
+- Automatic optimization
+- Folder organization
+
+Environment Variables:
+CLOUDINARY_CLOUD_NAME=
+CLOUDINARY_API_KEY=
+CLOUDINARY_API_SECRET=
+
+===============================================================================
+MONGODB
+===============================================================================
+
+Environment Variable:
+MONGODB_URI=
+
+===============================================================================
+AUTHENTICATION
+===============================================================================
+
+- JWT authentication
+- bcrypt password hashing
+- Role-based authorization
+- Persistent login
+- Protected admin routes
+
+===============================================================================
+DESIGN SYSTEM
+===============================================================================
+
+Colors:
+- Background: #0A0A0A
+- Surface: #121212
+- Accent Red: #B00020
+- Gold: #FFD54F
+- Text: #F5F5F5
+
+Typography:
+- Bold cinematic display font
+- Clean sans-serif body font
+
+Style:
+- Premium fashion brand
+- Minimal but powerful
+- Motion-rich
+- Mobile-first
+
+===============================================================================
+PERFORMANCE REQUIREMENTS
+===============================================================================
+
+- Use WebP/AVIF images
+- Next.js Image optimization
+- Lazy loading
+- Code splitting
+- Skeleton loaders
+- SEO metadata
+- Sitemap
+- Robots.txt
+
+===============================================================================
+ENVIRONMENT VARIABLES
+===============================================================================
+
+BACKEND:
+PORT=5000
+MONGODB_URI=
+JWT_SECRET=
+RAZORPAY_KEY_ID=
+RAZORPAY_KEY_SECRET=
+CLOUDINARY_CLOUD_NAME=
+CLOUDINARY_API_KEY=
+CLOUDINARY_API_SECRET=
+EMAIL_USER=
+EMAIL_PASS=
+FRONTEND_URL=http://localhost:3000
+ADMIN_URL=http://localhost:3001
+
+FRONTEND:
+NEXT_PUBLIC_API_URL=http://localhost:5000/api
+NEXT_PUBLIC_RAZORPAY_KEY_ID=
+
+ADMIN:
+NEXT_PUBLIC_API_URL=http://localhost:5000/api
+
+===============================================================================
+README REQUIREMENTS
+===============================================================================
+
+Generate detailed README files for:
+- Root project
+- frontend
+- backend
+- admin
+
+Include:
+- Installation
+- Environment setup
+- Running locally
+- Deployment steps
+
+===============================================================================
+FINAL INSTRUCTION TO CODEX
+===============================================================================
+
+Generate a production-quality, scalable, end-to-end ecommerce platform.
+
+Requirements:
+- Clean architecture
+- Reusable components
+- Real integrations
+- Fully responsive
+- Premium cinematic UI
+- No placeholder ecommerce templates
+- Use real assets from the assets folder
+- Include complete code, configuration, and setup instructions

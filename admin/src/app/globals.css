@@ -1,0 +1,50 @@
+@import "tailwindcss";
+
+:root {
+  --background: #0A0A0A;
+  --foreground: #F5F5F5;
+  --muted: #8E8E93;
+  --panel: #121212;
+  --panel-strong: #1A1A1A;
+  --border: #262626;
+  --accent: #B00020;
+  --accent-ink: #FFFFFF;
+  --danger: #B00020;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-outfit), ui-sans-serif, system-ui, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+.metric-card {
+  border: 1px solid var(--border);
+  background: var(--panel);
+  border-radius: 8px;
+  padding: 18px;
+}
+
+.surface {
+  border: 1px solid var(--border);
+  background: var(--panel);
+  border-radius: 8px;
+}

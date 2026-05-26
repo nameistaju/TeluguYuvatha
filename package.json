@@ -1,0 +1,27 @@
+{
+  "name": "telugu-yuvatha-platform",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Backend infrastructure and admin dashboard for Telugu Yuvatha.",
+  "workspaces": [
+    "client",
+    "admin",
+    "optional-api",
+    "shared"
+  ],
+  "scripts": {
+    "dev": "npm run dev --workspace client",
+    "dev:client": "npm run dev --workspace client",
+    "dev:api": "npm run dev --workspace optional-api",
+    "dev:admin": "npm run dev --workspace admin",
+    "db:generate": "npm run db:generate --workspace optional-api",
+    "db:migrate": "npm run db:migrate --workspace optional-api",
+    "db:seed": "npm run db:seed --workspace optional-api",
+    "build": "npm run build --workspace shared && npm run build --workspace optional-api && npm run build --workspace client && npm run build --workspace admin",
+    "lint": "npm run lint --workspace client && npm run lint --workspace admin",
+    "typecheck": "npm run typecheck --workspace shared && npm run typecheck --workspace optional-api && npm run typecheck --workspace client && npm run typecheck --workspace admin"
+  },
+  "engines": {
+    "node": ">=20.11.0"
+  }
+}
