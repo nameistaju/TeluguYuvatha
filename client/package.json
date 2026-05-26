@@ -12,6 +12,7 @@
   "dependencies": {
     "@react-three/drei": "^10.7.7",
     "@react-three/fiber": "^9.6.1",
+    "@tailwindcss/postcss": "^4",
     "@telugu-yuvatha/shared": "file:../shared",
     "@types/three": "^0.184.1",
     "@use-gesture/react": "^10.3.1",
@@ -32,7 +33,6 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
-    "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
